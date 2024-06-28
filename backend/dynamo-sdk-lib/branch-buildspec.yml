@@ -1,0 +1,19 @@
+version: 0.2
+
+env:
+  shell: bash
+
+phases:
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain breezeware --domain-owner 305251478828 --query authorizationToken --output text`
+      - mvn clean -s mvn-settings.xml validate
+      - mvn clean -s mvn-settings.xml compile
+  build:
+    commands:
+      - mvn clean -s mvn-settings.xml install
+      - mvn clean -s mvn-settings.xml package
+cache:
+  paths:
+    - '/root/.m2/**/*'

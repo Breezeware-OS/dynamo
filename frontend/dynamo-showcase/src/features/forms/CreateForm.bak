@@ -1,0 +1,315 @@
+import {createFormEditor} from '@bpmn-io/form-js';
+import '@bpmn-io/form-js/dist/assets/form-js.css';
+import '@bpmn-io/form-js/dist/assets/form-js-editor.css';
+import * as Yup from 'yup';
+import {useFormik} from 'formik';
+import {useDispatch} from 'react-redux';
+import {makeStyles} from '@material-ui/core';
+import {Grid, InputLabel} from '@mui/material';
+import {Button, Text, TextField} from 'glide-design-system';
+import {useNavigate} from 'react-router-dom';
+import React, {useEffect, useRef, useState} from 'react';
+import BackendService from '../../service/BackendService';
+import {
+  handleDiscardModal,
+  handleNotification,
+  handlePublishModal,
+  setFormData,
+} from './formSlice';
+import {logError, loginfo, traceSpan} from '../../helpers/tracing';
+
+// user schema to validate error handling
+const formSchema = Yup.object().shape({
+  title: Yup.string().required('Form Title is required.'),
+  description: Yup.string().required('Form Description is required.'),
+});
+
+const CreateForm = () => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const formRef = useRef(null);
+
+  const formik = useFormik({
+    initialValues: {},
+    validationSchema: formSchema,
+    onSubmit: async values => {
+      // traceSpan('Submit Form', async () => {
+      await submitForm(values?.title, values?.description);
+      // });
+    },
+    validateOnChange: false,
+    enableReinitialize: true,
+  });
+
+  /**
+   * Submits form
+   * @param {*} title of the form
+   * @param {*} description of the form
+   */
+  const submitForm = async (title, description) => {
+    const components = formRef?.current?.getSchema();
+    const body = {
+      name: title,
+      description: description,
+      formJson: components?.components,
+    };
+    console.log(body);
+    await BackendService.saveForm(body)
+      .then(res => {
+        // loginfo('Submit Form Success', res);
+        dispatch(
+          handleNotification({
+            error: false,
+            notificationMessage: 'Form Saved as draft',
+          }),
+        );
+        setTimeout(() => {
+          navigate('/forms');
+        }, 2000);
+      })
+      .catch(err => {
+        // logError('Submit Form Error', err);
+
+        dispatch(
+          handleNotification({error: true, notificationMessage: err?.message}),
+        );
+      });
+  };
+
+  /**
+   * Publishes the form
+   */
+  const publishForm = () => {
+    const components = formRef?.current?.getSchema();
+    console.log(components?.components, '---');
+
+    // Validate form title and description
+    if (
+      formik.values?.title === '' ||
+      !formik.values?.title ||
+      formik.values?.description === '' ||
+      !formik.values?.description
+    ) {
+      formik.setErrors({
+        title:
+          formik.values?.title === '' || !formik.values?.title
+            ? 'Form Title is required.'
+            : null,
+        description:
+          formik.values?.description === '' || !formik.values?.description
+            ? 'Form Description is required.'
+            : null,
+      });
+    } else {
+      // loginfo('Entering Publish Form', '');
+      formik.setErrors({title: null, description: null});
+      dispatch(
+        setFormData({
+          name: formik.values?.title,
+          description: formik.values?.description,
+          formJson: components?.components,
+        }),
+      );
+      dispatch(handlePublishModal());
+    }
+  };
+
+  /**
+   * render form using bpmn-io/formjs
+   * @returns form builder
+   */
+  const renderForm = async () => {
+    document.querySelector('#container').innerHTML = null;
+    let form = await createFormEditor({
+      title: 'Components',
+      schema: {
+        schemaVersion: 2,
+        exporter: {
+          name: 'Camunda Modeler',
+          version: '5.0.0-alpha.1',
+        },
+        components: [],
+        type: 'default',
+        id: 'Form_1v99ha5',
+        executionPlatform: 'Camunda Platform',
+        executionPlatformVersion: '7.16.0',
+      },
+      exporter: {
+        name: 'Foo Editor',
+        version: '1.0.0',
+      },
+      container: document.querySelector('#container'),
+    });
+    formRef.current = form;
+    return form;
+  };
+
+  /**
+   * Preview of form when creating
+   * set the form data in local storage to access in preview page
+   * opens in a new tab
+   */
+  const previewForm = async () => {
+    // loginfo('Entering Preview Form', '');
+
+    const components = formRef?.current?.getSchema();
+    sessionStorage.setItem(
+      'formJson',
+      JSON.stringify({
+        name: formik.values?.title,
+        description: formik.values?.description,
+        formJson: components?.components,
+      }),
+    );
+    window.open('/view-form', '_blank');
+  };
+
+  useEffect(() => {
+    renderForm();
+  }, []);
+
+  return (
+    <div>
+      <div
+        style={{
+          paddingBottom: 10,
+        }}>
+        <Text style={{fontSize: '24px', color: '#333333'}} id="header">
+          Create Forms
+        </Text>
+      </div>
+      <form onSubmit={e => e.preventDefault()}>
+        <div className={classes.container}>
+          <Grid
+            container
+            padding={3}
+            columnSpacing={2}
+            width="100%"
+            display="flex"
+            border="1px solid #d7d7d7"
+            borderRadius="5px">
+            <Grid item xs={12} xl={4} lg={3}>
+              <InputLabel sx={{fontSize: '14px', color: '#333333'}}>
+                Form Title <span style={{color: 'red'}}>*</span>
+              </InputLabel>
+              <TextField
+                name="title"
+                placeholder="Form Title"
+                width="100%"
+                onChange={formik.handleChange}
+                data-testid="title"
+                style={{color: 'black'}}
+              />
+              {formik.errors?.title && (
+                <Text className={classes.error}>{formik.errors?.title}</Text>
+              )}
+            </Grid>
+            <Grid item xs={12} xl={4} lg={3}>
+              <InputLabel sx={{fontSize: '14px', color: '#333333'}}>
+                Form Description <span style={{color: 'red'}}>*</span>
+              </InputLabel>
+              <TextField
+                name="description"
+                placeholder="Form Description"
+                width="100%"
+                onChange={formik.handleChange}
+                style={{color: 'black'}}
+              />
+              {formik.errors?.description && (
+                <Text className={classes.error}>
+                  {formik.errors?.description}
+                </Text>
+              )}
+            </Grid>
+            <Grid
+              item
+              container
+              xs={12}
+              xl={4}
+              lg={6}
+              spacing={2}
+              width="100%"
+              // display="flex"
+              // justifyContent="space-between"
+              paddingTop={2.5}>
+              <Grid item xs={12} lg={3} xl={3}>
+                <Button
+                  color="secondary"
+                  style={{width: '100%', fontSize: '13px'}}
+                  onClick={() => {
+                    // traceSpan('Discard Form', async () => {
+                    dispatch(handleDiscardModal());
+                    // });
+                  }}>
+                  Discard & Exit
+                </Button>
+              </Grid>
+              <Grid item xs={12} lg={3} xl={3}>
+                <Button
+                  variant="outlined"
+                  style={{width: '100%', fontSize: '13px'}}
+                  onClick={() => {
+                    // traceSpan('Preview Form', async () => {
+                    previewForm();
+                    // });
+                  }}>
+                  Preview
+                </Button>
+              </Grid>
+
+              <Grid item xs={12} lg={3} xl={3}>
+                <Button
+                  variant="outlined"
+                  style={{width: '100%', fontSize: '13px'}}
+                  onClick={formik.handleSubmit}
+                  id="save-btn">
+                  Save
+                </Button>
+              </Grid>
+
+              <Grid item xs={12} lg={3} xl={3}>
+                <Button
+                  style={{width: '100%', fontSize: '13px'}}
+                  onClick={() => {
+                    // traceSpan('Publish Form', async () => {
+                    publishForm();
+                    // });
+                  }}>
+                  Publish
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
+        <div
+          id="container"
+          // ref={containerRef}
+          style={{
+            width: '100%',
+            marginTop: '16px',
+            padding: '10px',
+            overflow: 'auto',
+            // border: '1px solid #d7d7d7',
+          }}
+        />
+      </form>
+    </div>
+  );
+};
+
+export default CreateForm;
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    borderRadius: '5px',
+    borderBottom: 'none',
+    paddingLeft: '24px',
+  },
+  error: {
+    textAlign: 'left !important',
+    color: 'red !important',
+    fontSize: '13px !important',
+    fontFamily: 'Roboto,sans-serif !important',
+  },
+}));

@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "156723da-8a1a-4bb3-8442-1a3bcc13d92a",
+		"name": "Dynamo Docs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24719924"
+	},
+	"item": [
+		{
+			"name": "Document",
+			"item": [
+				{
+					"name": "Create Document",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"collectionId\": \"df1000e3-2b70-466d-9aa6-b62ccce55a3c\",\n    \"parentId\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Publish Document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 30,\n    \"uniqueId\": \"40b7d960-32a6-49bc-8ecf-b2aab19a2af3\",\n    \"title\": \"Test\",\n    \"content\": \"# sathish\",\n    \"collectionId\": \"b7a5a2b0-9312-4820-910b-b584cfd7f3eb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/documents/publish",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents",
+								"publish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Fork Check",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJaa2JuZjJ4N2p0eFUyQkdDQXNVNHY1NjRhdWV3K1ZLR3lSbWhJNGM5c2pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIwMTM4ZTIzOC02Njg0LTQ3YzItYTQ2ZS0xZjkyYmU4NTE0ZDIiLCJjb2duaXRvOmdyb3VwcyI6WyJyX2FkbWluIiwiZ19hZG1pbmlzdHJhdGl2ZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV91MXBoU1N6cUwiLCJjbGllbnRfaWQiOiIzZzE4NmhtMTBkNDZsbTUwb3MyMzlyYTJxYyIsIm9yaWdpbl9qdGkiOiJiN2ZjZDA2ZS0yNDY4LTQxMzQtYTk5Yy1kNGU1NjExMzQwNTYiLCJldmVudF9pZCI6ImQwYzQ4NjFmLWM5YTctNGVkMi1hNzU1LTJmOTBmNmQ1YzQzYSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MTM0MzI2NTUsImV4cCI6MTcxMzQzOTk0NCwiaWF0IjoxNzEzNDM2MzQ0LCJqdGkiOiIwZmI4ZGM1My00NDg0LTQ4Y2EtYWU4NC1kYzY4MTI1MTQ3N2MiLCJ1c2VybmFtZSI6IjAxMzhlMjM4LTY2ODQtNDdjMi1hNDZlLTFmOTJiZTg1MTRkMiJ9.OfTFMO752JYC9Wr22lISHa2v41qHVIQ52pBEamOsA3eaEJgEkE6gxWKCt2OadsE7kNMAwYk59X0WS51WFbbS1JXWODhEX7-IifJ2FSV2NM_FVHZeJo5Hd0rXshXjg1EaoHxAl8ErDyQDyPaioMnGOJH9vfTt_S0giDBP-ITifqUOmq-nNQSp0hZ5pWVNMDqQO4ai1T2GueWpJttJKZte5xL2wb6IQFlTuVcLMFaSVt8MaLy_x10L5iIORgE7FeZpmofaKhy-pQMNiaa5t8eHr2kHqYMXWP-vW3o1Yrp76_O3x4awLBMJvcsRiQmkRrawSUTi2gmWB4zfOT13QwfXLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/documents/24016052-792a-47c2-b3b1-ca2868370448/fork-check",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents",
+								"24016052-792a-47c2-b3b1-ca2868370448",
+								"fork-check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Document",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJaa2JuZjJ4N2p0eFUyQkdDQXNVNHY1NjRhdWV3K1ZLR3lSbWhJNGM5c2pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIwMTM4ZTIzOC02Njg0LTQ3YzItYTQ2ZS0xZjkyYmU4NTE0ZDIiLCJjb2duaXRvOmdyb3VwcyI6WyJyX2FkbWluIiwiZ19hZG1pbmlzdHJhdGl2ZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV91MXBoU1N6cUwiLCJjbGllbnRfaWQiOiIzZzE4NmhtMTBkNDZsbTUwb3MyMzlyYTJxYyIsIm9yaWdpbl9qdGkiOiJiN2ZjZDA2ZS0yNDY4LTQxMzQtYTk5Yy1kNGU1NjExMzQwNTYiLCJldmVudF9pZCI6ImQwYzQ4NjFmLWM5YTctNGVkMi1hNzU1LTJmOTBmNmQ1YzQzYSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MTM0MzI2NTUsImV4cCI6MTcxMzQzOTk0NCwiaWF0IjoxNzEzNDM2MzQ0LCJqdGkiOiIwZmI4ZGM1My00NDg0LTQ4Y2EtYWU4NC1kYzY4MTI1MTQ3N2MiLCJ1c2VybmFtZSI6IjAxMzhlMjM4LTY2ODQtNDdjMi1hNDZlLTFmOTJiZTg1MTRkMiJ9.OfTFMO752JYC9Wr22lISHa2v41qHVIQ52pBEamOsA3eaEJgEkE6gxWKCt2OadsE7kNMAwYk59X0WS51WFbbS1JXWODhEX7-IifJ2FSV2NM_FVHZeJo5Hd0rXshXjg1EaoHxAl8ErDyQDyPaioMnGOJH9vfTt_S0giDBP-ITifqUOmq-nNQSp0hZ5pWVNMDqQO4ai1T2GueWpJttJKZte5xL2wb6IQFlTuVcLMFaSVt8MaLy_x10L5iIORgE7FeZpmofaKhy-pQMNiaa5t8eHr2kHqYMXWP-vW3o1Yrp76_O3x4awLBMJvcsRiQmkRrawSUTi2gmWB4zfOT13QwfXLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 71,\n    \"uniqueId\": \"24016052-792a-47c2-b3b1-ca2868370448\",\n    \"title\": \"Manoooojjjjjjjj\",\n    \"content\": \"# Manooojan\",\n    \"collectionId\": \"5ef44a10-24b5-4ebf-8530-d0516ed2670c\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Documents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJaa2JuZjJ4N2p0eFUyQkdDQXNVNHY1NjRhdWV3K1ZLR3lSbWhJNGM5c2pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIwMTM4ZTIzOC02Njg0LTQ3YzItYTQ2ZS0xZjkyYmU4NTE0ZDIiLCJjb2duaXRvOmdyb3VwcyI6WyJyX2FkbWluIiwiZ19hZG1pbmlzdHJhdGl2ZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV91MXBoU1N6cUwiLCJjbGllbnRfaWQiOiIzZzE4NmhtMTBkNDZsbTUwb3MyMzlyYTJxYyIsIm9yaWdpbl9qdGkiOiJiN2ZjZDA2ZS0yNDY4LTQxMzQtYTk5Yy1kNGU1NjExMzQwNTYiLCJldmVudF9pZCI6ImQwYzQ4NjFmLWM5YTctNGVkMi1hNzU1LTJmOTBmNmQ1YzQzYSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MTM0MzI2NTUsImV4cCI6MTcxMzQ0Njg5MiwiaWF0IjoxNzEzNDQzMjkyLCJqdGkiOiJlNGYyMGEwNS02MDNiLTQ2YzQtYTZhMC1hOGQ4YmI0ZjBmYmIiLCJ1c2VybmFtZSI6IjAxMzhlMjM4LTY2ODQtNDdjMi1hNDZlLTFmOTJiZTg1MTRkMiJ9.TUYRvUAf1WIrOlvu8Hm46h82LpOSjXkw7iRwUhj7c4vJUPIMwfEBxyw5GabfKp-_9wwrIk0-EgsnLJyA5m8ojJYu0sWynSTPszGUgWVN1IS6lbt1OTwg20Ty3ncXkQg5sjDkCgmNxNfC04P65_Hic7jNw02Ubg-iVtcKasfX2711DnRSoXkhiNq2XKEkT5L3GRIakDLFhqtPOoKw12QA32Mk5RaTK2gaOvkAgNsiz9F2ZazWVbN0Yk5jTZD6GRMHGxIb4YoCxZRlT9p50tA-_HZCO3eLtClRzqHUMULQgkiBIn-nE6YvN40oD254E6eqqJpeGsN544T5nSyva_1I_w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/documents?status=deleted",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents"
+							],
+							"query": [
+								{
+									"key": "collection-ids",
+									"value": "0f290623-7077-4dd4-8d2b-413d28a5a4c1",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "deleted"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Archive Document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/documents/fa829e0f-bf7f-45ca-afc3-544d2fb65ab5/archive",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents",
+								"fa829e0f-bf7f-45ca-afc3-544d2fb65ab5",
+								"archive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/documents/fa829e0f-bf7f-45ca-afc3-544d2fb65ab5/delete?permanent=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents",
+								"fa829e0f-bf7f-45ca-afc3-544d2fb65ab5",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "permanent",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Document",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/documents/cf421ab8-f3ac-4035-a8f2-e4f4609277f2/download",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents",
+								"cf421ab8-f3ac-4035-a8f2-e4f4609277f2",
+								"download"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Document",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/home/sathish/Downloads/Untitled (6).md"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/api/collections/54e45b0f-651b-4919-93ba-d2ac3ff33f0e/documents/upload?parent-document-id=688251bd-75e5-463c-be51-23f273ac3225",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collections",
+								"54e45b0f-651b-4919-93ba-d2ac3ff33f0e",
+								"documents",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "parent-document-id",
+									"value": "688251bd-75e5-463c-be51-23f273ac3225"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Collection",
+			"item": [
+				{
+					"name": "Create Collection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Test\",\n    \"description\":\"\",\n    \"permission\":\"read_write\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/collections",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Collection",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":15,\n    \"uniqueId\":\"fb68eaab-d81f-4d26-8fb0-7547c4f0a91d\",\n    \"name\":\"Test1\",\n    \"description\":\"Test\",\n    \"permission\":\"read_write\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/collections",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Collection",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/collections/cedeed6e-c6db-46c7-8929-ce34046624c9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collections",
+								"cedeed6e-c6db-46c7-8929-ce34046624c9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Collections with Documets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/collections",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"collections"
+							],
+							"query": [
+								{
+									"key": "include-drafts",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "RPC",
+									"disabled": true
+								},
+								{
+									"key": "collection-id",
+									"value": "9dc865cc-e861-475b-a306-648448382f29",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "uniqueId,name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Revision",
+			"item": [
+				{
+					"name": "Retrieve Revisions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJraWQiOiJaa2JuZjJ4N2p0eFUyQkdDQXNVNHY1NjRhdWV3K1ZLR3lSbWhJNGM5c2pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIwMTM4ZTIzOC02Njg0LTQ3YzItYTQ2ZS0xZjkyYmU4NTE0ZDIiLCJjb2duaXRvOmdyb3VwcyI6WyJyX2FkbWluIiwiZ19hZG1pbmlzdHJhdGl2ZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV91MXBoU1N6cUwiLCJjbGllbnRfaWQiOiIzZzE4NmhtMTBkNDZsbTUwb3MyMzlyYTJxYyIsIm9yaWdpbl9qdGkiOiJiN2ZjZDA2ZS0yNDY4LTQxMzQtYTk5Yy1kNGU1NjExMzQwNTYiLCJldmVudF9pZCI6ImQwYzQ4NjFmLWM5YTctNGVkMi1hNzU1LTJmOTBmNmQ1YzQzYSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MTM0MzI2NTUsImV4cCI6MTcxMzQzOTk0NCwiaWF0IjoxNzEzNDM2MzQ0LCJqdGkiOiIwZmI4ZGM1My00NDg0LTQ4Y2EtYWU4NC1kYzY4MTI1MTQ3N2MiLCJ1c2VybmFtZSI6IjAxMzhlMjM4LTY2ODQtNDdjMi1hNDZlLTFmOTJiZTg1MTRkMiJ9.OfTFMO752JYC9Wr22lISHa2v41qHVIQ52pBEamOsA3eaEJgEkE6gxWKCt2OadsE7kNMAwYk59X0WS51WFbbS1JXWODhEX7-IifJ2FSV2NM_FVHZeJo5Hd0rXshXjg1EaoHxAl8ErDyQDyPaioMnGOJH9vfTt_S0giDBP-ITifqUOmq-nNQSp0hZ5pWVNMDqQO4ai1T2GueWpJttJKZte5xL2wb6IQFlTuVcLMFaSVt8MaLy_x10L5iIORgE7FeZpmofaKhy-pQMNiaa5t8eHr2kHqYMXWP-vW3o1Yrp76_O3x4awLBMJvcsRiQmkRrawSUTi2gmWB4zfOT13QwfXLQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/documents/24016052-792a-47c2-b3b1-ca2868370448/revisions",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"documents",
+								"24016052-792a-47c2-b3b1-ca2868370448",
+								"revisions"
+							],
+							"query": [
+								{
+									"key": "revision-id",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "revision-date",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

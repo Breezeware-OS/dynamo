@@ -1,0 +1,468 @@
+import React, {useEffect, useState} from 'react';
+import {
+  Alert,
+  Divider,
+  Grid,
+  Snackbar,
+  MenuItem,
+  InputLabel,
+} from '@mui/material';
+import {makeStyles} from '@material-ui/core';
+
+import {Button, Chip, Menu, Table, Text, TextField} from 'glide-design-system';
+import 'rsuite/dist/rsuite-no-reset.min.css';
+import {DatePicker} from 'rsuite';
+import NoDataFound from '../../components/noData/NoDataFound';
+import TablePagination from '../../components/pagination/TablePagination';
+import DeleteUserInviteModal from './DeleteUserInviteModal';
+import InviteUserModal from './InviteUserModal';
+import BackendService from '../../service/BackendService';
+
+const BASE_DYNAMO_FORM_URL = process.env.REACT_APP_DYNAMO_FORM_URL + '/form';
+
+export default function InvitedUsersTable({formId, data}) {
+  console.log('data 55', data);
+  const classes = useStyles();
+
+  const [tableData, setData] = useState([]);
+  const [date, setDate] = useState('');
+  const [search, setSearch] = useState('');
+  const [sortOrder, setSortOrder] = useState('desc');
+  const [sortItem, setSortItem] = useState('createdOn');
+  const [pageNo, setPageNo] = useState(0);
+  const [error, setError] = useState(null);
+  const [rowindex, setRowIndex] = useState();
+  const [showMenu, setShowMenu] = useState(null);
+  const [loader, setLoader] = useState(false);
+  const open = Boolean(showMenu);
+
+  const [currentUserData, setCurrentUserData] = useState(null);
+  const [currentUserInviteData, setCurrentUserInvitedata] = useState(null);
+
+  const [openDeleteUserInviteModal, setOpenDeleteUserInviteModal] =
+    useState(false);
+  const [openInviteUserModal, setOpenInviteUserModal] = useState(false);
+  const [currentInviteData, setCurrentInviteData] = useState(null);
+
+  const [isCopied, setIsCopied] = useState(false);
+  const [copiedValue, setCopiedValue] = useState(null);
+
+  const tablecolumns = [
+    {
+      label: 'emailAddress',
+      fieldName: 'email',
+      sort: true,
+
+      style: {
+        textAlign: 'left',
+      },
+      customBodyRenderer: rowItem => {
+        return (
+          <div>
+            <Text style={{fontSize: '16px'}}>{rowItem.email}</Text>
+          </div>
+        );
+      },
+    },
+
+    {
+      label: 'status',
+      fieldName: 'status',
+      sort: true,
+      style: {
+        textAlign: 'left',
+      },
+      customBodyRenderer: rowItem => {
+        return (
+          <Chip
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              textAlign: 'center',
+              padding: '5px',
+              fontSize: '12px',
+              fontWeight: 400,
+              textTransform: 'capitalize',
+              backgroundColor:
+                rowItem.status === 'submitted' ? '#b1dfd1' : '#d7d7d7',
+              color: '#333333',
+            }}>
+            {rowItem?.status}
+          </Chip>
+        );
+      },
+    },
+
+    {
+      label: 'inviteDate',
+      fieldName: 'createdOn',
+      type: 'date',
+      sort: true,
+      style: {
+        textAlign: 'left',
+      },
+    },
+
+    {
+      label: 'action',
+      style: {
+        textAlign: 'left',
+      },
+      element: (
+        <span
+          className="material-symbols-outlined"
+          data-testid="actions"
+          style={{
+            fontWeight: 500,
+            // height: '10px',
+            display: 'flex',
+            alignItems: 'center',
+            fontSize: '40px',
+          }}>
+          more_horiz
+        </span>
+      ),
+    },
+  ];
+
+  // closes action menu
+  const closeMenu = () => {
+    setShowMenu(null);
+  };
+  /**
+   * Action menu is opened on which the user is clicked
+   * @param {*} e element
+   * @param {*} value row value
+   */
+  const actionHandler = async (e, value) => {
+    const index = await tableData?.content?.findIndex(
+      item => item?.id === value?.id,
+    );
+    setRowIndex(index);
+    console.log('actionHandler', tableData?.content[index]);
+    setCurrentInviteData(tableData?.content[index]);
+    setShowMenu(e);
+  };
+
+  /**
+   * Search data on value change
+   * @param {*} data input value
+   */
+  const searchHandler = data => {
+    setSearch(data?.target?.value);
+  };
+
+  /**
+   * Filter data on value change
+   * @param {*} data input value
+   */
+  const filterDateHandler = data => {
+    setDate(new Date(data).toISOString());
+  };
+
+  /**
+   * updates sort order and sort item state when sort button is clicked
+   * @param {*} order  order to be sorted(ASC,DESC)
+   * @param {*} item item to be sorted(created-on)
+   */
+  const sortHandler = (sortOrder, sortItem) => {
+    const updatedSortItem = sortItem?.startsWith('created')
+      ? sortItem?.replace(/o/g, 'O')?.split(' ')?.join('')
+      : sortItem;
+    setSortItem(updatedSortItem);
+    setSortOrder(sortOrder);
+    // dispatch(availabilitySliceActions.handleSorting());
+  };
+
+  /**
+   * Pagination of user table
+   * @param {*} value page number
+   */
+  const PagehandleChange = value => {
+    setPageNo(value - 1);
+  };
+
+  /**
+   * retrieve list of forms
+   */
+  const retrieveData = () => {
+    BackendService.retrieveListUsersInvited({
+      search,
+      pageNo,
+      sortItem,
+      sortOrder,
+      date,
+      id: formId,
+    })
+      .then(async res => {
+        // await loginfo('Form List Success', res);
+        console.log(' invited users Success', res?.data);
+        setLoader(false);
+        setData(res.data);
+        setError(false);
+      })
+      .catch(async err => {
+        console.log(err);
+        // await logError('Form List Error', err);
+        setLoader(false);
+        setError(err?.response?.data?.message);
+      });
+  };
+
+  const deleteInviteBtnHandler = data => {
+    setShowMenu(false);
+    setCurrentUserData(data);
+    setOpenDeleteUserInviteModal(true);
+  };
+
+  useEffect(() => {
+    // setLoader(true);
+    // traceSpan('Retrieve List Of Forms', async () => {
+    retrieveData();
+    // });
+  }, [search, sortItem, sortOrder, date, pageNo]);
+
+  const copyFormUrl = (url, id) => {
+    const input = document.createElement('input');
+    input.value = url;
+    document.body.appendChild(input);
+    input.select();
+
+    document.execCommand('copy');
+    document.body.removeChild(input);
+    setCopiedValue(url);
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+      setCopiedValue(null);
+    }, 1500);
+  };
+
+  return (
+    <div>
+      <InviteUserModal
+        formId={data?.uniqueId}
+        open={openInviteUserModal}
+        closeModal={() => setOpenInviteUserModal(false)}
+        retrieveData={retrieveData}
+      />
+      <DeleteUserInviteModal
+        open={openDeleteUserInviteModal}
+        getData={retrieveData}
+        closeModal={() => setOpenDeleteUserInviteModal(false)}
+        currentUserInviteData={currentUserInviteData}
+      />
+      <div style={{justifyContent: 'center', display: 'flex'}}>
+        <Grid
+          container
+          style={{
+            border: '1px solid #d7d7d7',
+            width: 600,
+          }}>
+          <Grid item xs={8} padding={2}>
+            <Text style={{fontSie: '12px'}}>Share Setings</Text>
+            <Text style={{color: 'black'}} type="h3">
+              {data?.version
+                ? data?.accessType === 'public'
+                  ? 'Public'
+                  : 'Private'
+                : 'Not Published'}
+            </Text>
+          </Grid>
+          <Grid item xs={4} padding={2}>
+            <Button
+              disabled={
+                data?.accessType === 'public' ||
+                data.status !== 'Published' ||
+                !data?.version
+              }
+              onClick={() => setOpenInviteUserModal(true)}
+              containerStyle={{display: 'flex', justifyContent: 'end'}}>
+              Invite
+            </Button>
+          </Grid>
+          <Grid item xs={12} padding={2}>
+            <Text style={{fontSie: '12px'}}>Link</Text>
+            <Text
+              style={{color: 'black', display: 'flex', alignItems: 'center'}}
+              type="h3">
+              {data?.version ? (
+                <a
+                  style={{
+                    cursor: 'pointer',
+                  }}>{`${BASE_DYNAMO_FORM_URL}/${data.uniqueId}`}</a>
+              ) : (
+                '-'
+              )}
+
+              {data?.version && !isCopied && (
+                <span
+                  onClick={() =>
+                    copyFormUrl(`${BASE_DYNAMO_FORM_URL}/${data.uniqueId}`)
+                  }
+                  style={{
+                    cursor: 'pointer',
+                    fontSize: '17px',
+                    marginLeft: '5px',
+                    color: 'black',
+                  }}
+                  class="material-symbols-outlined">
+                  content_copy
+                </span>
+              )}
+              {isCopied && (
+                <span
+                  style={{marginLeft: '5px'}}
+                  class="material-symbols-outlined">
+                  done_all
+                </span>
+              )}
+            </Text>
+          </Grid>
+        </Grid>
+      </div>
+
+      <div className={classes.container}>
+        <Grid container display="flex" spacing={6} flexDirection="row">
+          <Grid item xs={12} md={5} lg={2}>
+            <TextField
+              label="Search"
+              id="search"
+              type="search"
+              // placeholder="Search"
+              name="search"
+              width="100%"
+              icon={
+                <span
+                  style={{color: '#999999', fontSize: '18px'}}
+                  className="material-symbols-outlined">
+                  search
+                </span>
+              }
+              onChange={searchHandler}
+              style={{color: 'black'}}
+            />
+          </Grid>
+          <Grid item xs={12} md={5} lg={2}>
+            <InputLabel>Date</InputLabel>
+            <DatePicker
+              size="md"
+              style={{width: '100%'}}
+              format="MM-dd-yyyy"
+              placeholder="mm-dd-yyyy"
+              // cleanable={false}
+              onClean={e => {
+                e.target.value = '';
+                setDate('');
+              }}
+              onChange={e => {
+                setDate(e);
+              }}
+            />
+          </Grid>
+        </Grid>
+      </div>
+      <Table
+        columns={tablecolumns}
+        data={tableData?.content ? tableData?.content : []}
+        // data={sampleInvitedData}
+        sortHandler={sortHandler}
+        sortItem={sortItem}
+        sortOrder={sortOrder}
+        actionHandler={actionHandler}
+        loading={loader}
+        progressCircleStyle={{color: '#0a5b99'}}
+        message={tableData?.content?.length === 0 ? <NoDataFound /> : ''}
+        style={{
+          border: '0px',
+          minWidth: '1000px',
+        }}
+        tableContainerStyle={{
+          border: '1px solid #d7d7d7',
+          borderBottomLeftRadius: '5px',
+          borderBottomRightRadius: '5px',
+        }}
+        tableHeaderStyle={{height: '40px'}}
+        tableRowStyles={{height: '40px'}}
+      />
+      <Menu
+        anchorEl={showMenu}
+        open={open}
+        onClose={closeMenu}
+        data-testid="action-menu"
+        id="action-menu"
+        style={{
+          minWidth: '118px',
+        }}>
+        <MenuItem
+          disabled={currentInviteData?.status === 'submitted'}
+          className={classes.menuItem}
+          id="edit-opt"
+          onClick={() => {
+            // deleteInviteBtnHandler(tableData?.content[rowindex]);
+            setCurrentUserInvitedata(tableData?.content[rowindex]);
+            setOpenDeleteUserInviteModal(true);
+            setShowMenu(false);
+          }}>
+          <span
+            style={{color: ' red', marginRight: '8px'}}
+            className="material-symbols-outlined">
+            delete
+          </span>
+          Delete Invite
+        </MenuItem>
+      </Menu>
+      <TablePagination
+        PagehandleChange={PagehandleChange}
+        currentPage={tableData?.number + 1}
+        data={tableData}
+        pageNo={pageNo}
+      />
+    </div>
+  );
+}
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    border: '1px solid #DDD',
+    borderRadius: '5px',
+    borderBottom: 'none',
+    borderBottomLeftRadius: '0px',
+    borderBottomRightRadius: '0px',
+    padding: '25px',
+  },
+  select: {
+    width: '300px',
+    borderRadius: '5px',
+    border: '1px solid #999999',
+    backgroundColor: 'transparent',
+    color: 'black',
+  },
+  durationField: {
+    color: 'black !important',
+    '& .rs-picker-toggle-wrapper': {
+      display: 'inline-block',
+      maxWidth: '100%',
+      verticalAlign: 'middle',
+    },
+    '& .rs-picker-menu': {
+      zIndex: 20000,
+    },
+    '& .rs-picker-toggle-value': {
+      color: 'black !important',
+    },
+  },
+  menuItem: {
+    cursor: 'pointer',
+    width: '100%',
+    justifyContent: 'flex-start',
+    padding: '14px !important',
+    height: '45px !important',
+    alignItems: 'center',
+    color: '#333333 !important',
+  },
+
+  tabStyle: {
+    borderBottom: 'none !important',
+  },
+}));

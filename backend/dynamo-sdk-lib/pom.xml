@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.breezeware.dynamo</groupId>
+        <artifactId>dynamo-parent-lib</artifactId>
+        <version>2.1.0</version>
+    </parent>
+
+    <artifactId>dynamo-sdk-lib</artifactId>
+    <packaging>pom</packaging>
+    <version>1.43.0</version>
+
+
+    <name>Dynamo SDK</name>
+    <description>Collection of functional libraries</description>
+
+    <url>
+        https://us-east-1.console.aws.amazon.com/codesuite/codecommit/repositories/dynamo/browse
+    </url>
+
+    <properties>
+        <pmd.excludeFromFailureFile>pmd-skip.properties</pmd.excludeFromFailureFile>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>breezeware-dynamo-parent-lib</id>
+            <name>breezeware-dynamo-parent-lib</name>
+            <url>https://breezeware-305251478828.d.codeartifact.us-east-1.amazonaws.com/maven/dynamo-parent-lib/</url>
+        </repository>
+        <repository>
+            <id>breezeware-dynamo-parent-lib-snapshot</id>
+            <name>breezeware-dynamo-parent-lib-snapshot</name>
+            <url>
+                https://breezeware-305251478828.d.codeartifact.us-east-1.amazonaws.com/maven/dynamo-parent-lib-snapshot/
+            </url>
+        </repository>
+    </repositories>
+
+
+    <distributionManagement>
+        <repository>
+            <id>breezeware-dynamo-sdk</id>
+            <name>breezeware-dynamo-sdk</name>
+            <url>https://breezeware-305251478828.d.codeartifact.us-east-1.amazonaws.com/maven/dynamo-sdk/</url>
+        </repository>
+        <snapshotRepository>
+            <id>breezeware-dynamo-sdk-snapshot</id>
+            <name>breezeware-dynamo-sdk-snapshot</name>
+            <url>https://breezeware-305251478828.d.codeartifact.us-east-1.amazonaws.com/maven/dynamo-sdk-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <modules>
+        <module>dynamo-auth</module>
+        <module>dynamo-aws</module>
+        <module>dynamo-batch</module>
+        <module>dynamo-csv</module>
+        <module>dynamo-generics-crud</module>
+        <module>dynamo-iac</module>
+        <module>dynamo-sdk-lib-bom</module>
+        <module>dynamo-utils</module>
+        <module>dynamo-logging</module>
+        <module>dynamo-workflow</module>
+        <module>dynamo-user-management</module>
+        <module>dynamo-form-builder</module>
+        <module>dynamo-image</module>
+        <module>dynamo-docs</module>
+        <module>dynamo-ai</module>
+    </modules>
+
+</project>

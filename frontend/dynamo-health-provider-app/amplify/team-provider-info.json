@@ -1,0 +1,25 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dynamohealthprovider-dev-164758-authRole",
+      "UnauthRoleArn": "arn:aws:iam::305251478828:role/amplify-dynamohealthprovider-dev-164758-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::305251478828:role/amplify-dynamohealthprovider-dev-164758-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dynamohealthprovider-dev-164758-deployment",
+      "UnauthRoleName": "amplify-dynamohealthprovider-dev-164758-unauthRole",
+      "StackName": "amplify-dynamohealthprovider-dev-164758",
+      "StackId": "arn:aws:cloudformation:us-east-1:305251478828:stack/amplify-dynamohealthprovider-dev-164758/219eb270-8abb-11ee-901c-1210a9d8200b",
+      "AmplifyAppId": "d396zs4v4nefzu"
+    },
+    "categories": {
+      "auth": {
+        "dynamohealthprovider9a4ebab1": {
+          "userPoolId": "us-east-1_Q7jFD5LjT",
+          "userPoolName": "dynamohealthcareteama1587056_userpool_a1587056-dev",
+          "webClientId": "1p44f15op353ncfo9ssb7h7nad",
+          "nativeClientId": "1p44f15op353ncfo9ssb7h7nad"
+        }
+      }
+    }
+  }
+}

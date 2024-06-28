@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dynamohealthcareteam-dev-154006-authRole",
+      "UnauthRoleArn": "arn:aws:iam::305251478828:role/amplify-dynamohealthcareteam-dev-154006-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::305251478828:role/amplify-dynamohealthcareteam-dev-154006-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dynamohealthcareteam-dev-154006-deployment",
+      "UnauthRoleName": "amplify-dynamohealthcareteam-dev-154006-unauthRole",
+      "StackName": "amplify-dynamohealthcareteam-dev-154006",
+      "StackId": "arn:aws:cloudformation:us-east-1:305251478828:stack/amplify-dynamohealthcareteam-dev-154006/a64e2e10-8ab1-11ee-aadb-1290752620c3",
+      "AmplifyAppId": "d1u27e96oh9qph"
+    }
+  }
+}

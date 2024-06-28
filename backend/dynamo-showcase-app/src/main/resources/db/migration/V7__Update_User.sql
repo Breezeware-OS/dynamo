@@ -1,0 +1,1 @@
+ALTER TABLE dynamo.user ADD additional_info text;

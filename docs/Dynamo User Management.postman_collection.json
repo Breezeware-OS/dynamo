@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "b5141125-aeb2-47ec-92d2-92b5fcbd496e",
+		"name": "Dynamo User Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24719924"
+	},
+	"item": [
+		{
+			"name": "Invite User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"sathish@breezeware.net\",\n  \"roles\": [\"user\"],\n  \"groups\": [\"development\"],\n  \"invitedBy\": \"4c2bb19c-854d-4320-b257-bae33e1fe279\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users/invite",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users",
+						"invite"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account Setup User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"sathish@breezeware.net\",\n  \"firstName\": \"Sathish\",\n  \"lastName\": \"Kumar\",\n  \"phoneNumber\": \"+919524943027\",\n  \"password\": \"breeze123\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users/account-setup",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users",
+						"account-setup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"4c2bb19c-854d-4320-b257-bae33e1fe279\",\n    \"firstName\": \"Mano\",\n    \"lastName\": \"Kumaran\",\n    \"email\": \"manoj@breezeware.net\",\n    \"phoneNumber\": \"+11234560090\",\n    \"roles\": [\"admin\"],\n    \"groups\": [\"development\"],\n    \"status\":\"active\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Users with Sort",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users?sort=lastName,DESC",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "lastName,DESC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Users with Pagination",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users?page-no=0&page-size=1&sort=id,ASC",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page-no",
+							"value": "0"
+						},
+						{
+							"key": "page-size",
+							"value": "1"
+						},
+						{
+							"key": "sort",
+							"value": "id,ASC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Users with Search Filter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users?page-no=0&page-size=16&sort=id,ASC&role=&username=&created-date=&status=",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page-no",
+							"value": "0"
+						},
+						{
+							"key": "page-size",
+							"value": "16"
+						},
+						{
+							"key": "sort",
+							"value": "id,ASC"
+						},
+						{
+							"key": "role",
+							"value": ""
+						},
+						{
+							"key": "username",
+							"value": ""
+						},
+						{
+							"key": "created-date",
+							"value": ""
+						},
+						{
+							"key": "status",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Suspend User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users/:user-id/suspend",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users",
+						":user-id",
+						"suspend"
+					],
+					"variable": [
+						{
+							"key": "user-id",
+							"value": "d3a67b2e-01af-4dbb-81f7-78778c258993"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Activate User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users/:user-id/activate",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users",
+						":user-id",
+						"activate"
+					],
+					"variable": [
+						{
+							"key": "user-id",
+							"value": "d3a67b2e-01af-4dbb-81f7-78778c258993"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users/:user-id",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users",
+						":user-id"
+					],
+					"variable": [
+						{
+							"key": "user-id",
+							"value": "4c2bb19c-854d-4320-b257-bae33e1fe279"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Invited User",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"cbc90f64-557d-49ff-adbf-d7a71afa6258\",\n    \"email\": \"sathishkumar.ganesan1997@gmail.com\",\n    \"roles\": [\"admin\"],\n    \"groups\": [\"development\"],\n    \"status\":\"invited\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/service/user-management/users",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"service",
+						"user-management",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/actuator/health",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJraWQiOiJaa2JuZjJ4N2p0eFUyQkdDQXNVNHY1NjRhdWV3K1ZLR3lSbWhJNGM5c2pFPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIwMTM4ZTIzOC02Njg0LTQ3YzItYTQ2ZS0xZjkyYmU4NTE0ZDIiLCJjb2duaXRvOmdyb3VwcyI6WyJyX2FkbWluIiwiZ19hZG1pbmlzdHJhdGl2ZSJdLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV91MXBoU1N6cUwiLCJjbGllbnRfaWQiOiIzZzE4NmhtMTBkNDZsbTUwb3MyMzlyYTJxYyIsIm9yaWdpbl9qdGkiOiI3OGQ4OWMzMS04OWU4LTRiYjgtODViOS01YmFhMDJmN2VjNTUiLCJldmVudF9pZCI6Ijk0NWQ4OWQwLTkxYTktNDkyYS1hODdlLTFjYjlmOWZhNjI2YyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2OTU2MjY1OTAsImV4cCI6MTY5NTYzMDE5MCwiaWF0IjoxNjk1NjI2NTkwLCJqdGkiOiI4MDIzYWVhYS03NGNmLTRiZDgtOGJmOS1mNzYwZGY1N2U4ZTMiLCJ1c2VybmFtZSI6IjAxMzhlMjM4LTY2ODQtNDdjMi1hNDZlLTFmOTJiZTg1MTRkMiJ9.CcAEpN_4u9s8-t7ZF7eilAgNiLQ5M4SOmz9zzGq46Tvt5dssPUhiR-t4mY-A3oloZOWP-s3T7koWqDZM3nYOEQ6mYQlkH1uQzYXNbpY275Ozk5t5W8s0Xe3gafO6j808ntiyRZ3QzL8RCTnvfFBe0KfVgP9BJUlGKfVvUzyLqrE7-OTJLp8JqjZTqdjJwKLyP4NcmUGd5XLbtJ3n5s0UZF4mWoTnCAUCCi1eE1dUTGNu4nK1hBxprqwrvuD88KNqs7WzqHcxx6DF-3445NYlALo--h4jVRsbQg3Fs-bl3QtU-tzxY_deHmeoGySqiNQ2YvOo9Y-gKSRaVxcX5hFtyQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}

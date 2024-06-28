@@ -1,0 +1,57 @@
+services:
+  dynamo-restful-api-server:
+    image: 305251478828.dkr.ecr.us-east-1.amazonaws.com/dynamo-showcase-app:latest
+    container_name: dynamo-restful-api-server
+    ports:
+      - "8081:8443"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8443/actuator/health"]
+      interval: 30s
+      timeout: 7s
+      start_period: 60s
+      retries: 5
+    env_file: .env.docker-compose.development
+    restart: "no"
+    networks:
+      - dynamo-platform
+
+  db:
+    image: postgres:12.19
+    container_name: showcase-db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 7s
+      start_period: 2s
+      retries: 3
+    environment:
+      POSTGRES_USER: dynamo_usr
+      POSTGRES_PASSWORD: dynamo123
+      POSTGRES_DB: dynamo_db
+    restart: "no"
+    volumes:
+      - dynamo-restful-server-data:/app/data
+    networks:
+      - dynamo-platform
+
+  dynamo-showcase-web:
+    build:
+      context: ../frontend/dynamo-showcase
+    container_name: dynamo-showcase-web
+    env_file: .env.docker-compose.development
+    ports:
+      - "3000:80"
+    restart: no
+    networks:
+      - dynamo-platform
+
+volumes:
+  dynamo-restful-server-data:
+
+networks:
+  dynamo-platform:

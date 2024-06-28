@@ -1,0 +1,28 @@
+.tabs {
+  width: 150px !important;
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.TabButton {
+  width: 150px;
+}
+
+.startBtnContainer {
+  display: flex;
+  justify-content: end;
+}
+
+@media only screen and (max-width: 900px) {
+  .tabs {
+    width: 106px !important;
+  }
+  .TabButton {
+    width: 106px;
+  }
+
+  .startBtnContainer {
+    display: block;
+    margin-bottom: 10px !important;
+  }
+}

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_194f6f3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.14.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.19.0">
+  <bpmn:collaboration id="Collaboration_0rgus6o">
+    <bpmn:participant id="Participant_0zqhu9v" name="DynamoShowcaseAppProcess" processRef="DynamoShowcaseAppProcess" />
+  </bpmn:collaboration>
+  <bpmn:process id="DynamoShowcaseAppProcess" isExecutable="true" camunda:historyTimeToLive="180">
+    <bpmn:laneSet id="LaneSet_0hw293h">
+      <bpmn:lane id="Applicant_Lane" name="Applicant">
+        <bpmn:flowNodeRef>submit-application</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0q21nd5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>set-consent-document-submission-choice</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>docusign-consent-document</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>upload-consent-document</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1tkb7h5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_18wlxjy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Reviewer_Lane" name="Reviewer">
+        <bpmn:flowNodeRef>review-application</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>approve-consent-document-submission</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:userTask id="submit-application" name="Submit application" camunda:formRef="{   &#34;components&#34;: [     {       &#34;text&#34;: &#34;Submit Application&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;id&#34;: &#34;Field_1mc9kqh&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1787heu&#34;       }     },     {       &#34;text&#34;: &#34;General Information&#34;,       &#34;label&#34;: &#34;Text view&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_14j49bz&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_0c2xbjj&#34;     },     {       &#34;key&#34;: &#34;application.firstName&#34;,       &#34;label&#34;: &#34;First Name&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       },       &#34;id&#34;: &#34;Field_0v13w6h&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       }     },     {       &#34;label&#34;: &#34;Middle Initial&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_1g4j9y9&#34;,       &#34;key&#34;: &#34;application.middleInitial&#34;     },     {       &#34;label&#34;: &#34;Last Name&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_0ynjjxg&#34;,       &#34;key&#34;: &#34;application.lastName&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;values&#34;: [         {           &#34;label&#34;: &#34;Male&#34;,           &#34;value&#34;: &#34;male&#34;         },         {           &#34;label&#34;: &#34;Female&#34;,           &#34;value&#34;: &#34;female&#34;         },         {           &#34;label&#34;: &#34;Other&#34;,           &#34;value&#34;: &#34;other&#34;         }       ],       &#34;label&#34;: &#34;Gender&#34;,       &#34;type&#34;: &#34;radio&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_0bmfx3j&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_133m2pu&#34;,       &#34;key&#34;: &#34;application.gender&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;subtype&#34;: &#34;date&#34;,       &#34;dateLabel&#34;: &#34;Date&#34;,       &#34;label&#34;: &#34;Date time&#34;,       &#34;type&#34;: &#34;datetime&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_0bmfx3j&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_07zd3bz&#34;,       &#34;key&#34;: &#34;application.dateOfBirth&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;Language&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_0bmfx3j&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_07v1ki6&#34;,       &#34;key&#34;: &#34;application.language&#34;     },     {       &#34;text&#34;: &#34;Contact Information&#34;,       &#34;label&#34;: &#34;Text view&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_0vin07r&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_1pgdtzi&#34;     },     {       &#34;label&#34;: &#34;Phone Number&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_06z0l06&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_09wo5hi&#34;,       &#34;key&#34;: &#34;application.phoneNumber&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;Address Line 1&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_06z0l06&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_0bycjxz&#34;,       &#34;key&#34;: &#34;application.addressLine1&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;Address Line 2&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1ahtrfl&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_0h08c0a&#34;,       &#34;key&#34;: &#34;application.addressLine2&#34;     },     {       &#34;label&#34;: &#34;City&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1ahtrfl&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_05gmivh&#34;,       &#34;key&#34;: &#34;application.city&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;State&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1ahtrfl&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_1arv1cm&#34;,       &#34;key&#34;: &#34;application.state&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;Zipcode&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_15llmb4&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_19r7poq&#34;,       &#34;key&#34;: &#34;application.zipCode&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true,         &#34;maxLength&#34;: 5       }     },     {       &#34;values&#34;: [         {           &#34;label&#34;: &#34;Upload Document&#34;,           &#34;value&#34;: &#34;uploadDocument&#34;         },         {           &#34;label&#34;: &#34;Sign Document&#34;,           &#34;value&#34;: &#34;signDocument&#34;         }       ],       &#34;label&#34;: &#34;Do you want to upload or sign document? &#34;,       &#34;type&#34;: &#34;radio&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1byvt6d&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_0jy84wy&#34;,       &#34;key&#34;: &#34;application.documentSubmissionOption&#34;,       &#34;properties&#34;: {         &#34;hidden&#34;: &#34;true&#34;       },       &#34;defaultValue&#34;: &#34;uploadDocument&#34;     }   ],   &#34;schemaVersion&#34;: 10,   &#34;exporter&#34;: {     &#34;name&#34;: &#34;Camunda Modeler&#34;,     &#34;version&#34;: &#34;5.14.0&#34;   },   &#34;type&#34;: &#34;default&#34;,   &#34;id&#34;: &#34;Form_06wdn7g&#34; }" camunda:formRefBinding="latest">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_138w3td</bpmn:incoming>
+      <bpmn:outgoing>Flow_11k9ory</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_0q21nd5">
+      <bpmn:incoming>Flow_1uhex3m</bpmn:incoming>
+      <bpmn:outgoing>Flow_0i98c0d</bpmn:outgoing>
+      <bpmn:outgoing>Flow_00434jl</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="set-consent-document-submission-choice" name="Get Consent document Submission choice" camunda:class="net.breezeware.dynamo.showcaseapp.workflow.processmanagement.showcaseprocess.taskmanager.SetConsentDocumentDelegate">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_0hlu5qp</bpmn:incoming>
+      <bpmn:outgoing>Flow_1uhex3m</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="docusign-consent-document" name="Docusign Consent Document" camunda:formRef="{   &#34;components&#34;: [     {       &#34;text&#34;: &#34; Consent Document Docusign&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;id&#34;: &#34;Field_1mc9kqh&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1787heu&#34;       }     },     {       &#34;text&#34;: &#34; By clicking the button below, you will be directed to the DocuSign page&#34;,       &#34;label&#34;: &#34;Text view&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_18qhv6k&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_157u1hu&#34;     },     {       &#34;action&#34;: &#34;submit&#34;,       &#34;label&#34;: &#34;Sign Document&#34;,       &#34;type&#34;: &#34;button&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1p9aypf&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_10tup62&#34;     }   ],   &#34;schemaVersion&#34;: 10,   &#34;exporter&#34;: {     &#34;name&#34;: &#34;Camunda Modeler&#34;,     &#34;version&#34;: &#34;5.14.0&#34;   },   &#34;type&#34;: &#34;default&#34;,   &#34;id&#34;: &#34;Form_06wdn7g&#34; }" camunda:formRefBinding="latest">
+      <bpmn:incoming>Flow_0i98c0d</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dkm2ep</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="upload-consent-document" name="Upload Consent Document" camunda:formRef="{   &#34;components&#34;: [     {       &#34;text&#34;: &#34; Consent Document Upload&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;id&#34;: &#34;Field_1mc9kqh&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1787heu&#34;       }     },     {       &#34;key&#34;: &#34;application.consentDocument1&#34;,       &#34;label&#34;: &#34;Upload a Document&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       },       &#34;id&#34;: &#34;Field_0v13w6h&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       },       &#34;properties&#34;: {         &#34;type&#34;: &#34;file&#34;       }     },     {       &#34;label&#34;: &#34;Upload a Document&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       },       &#34;id&#34;: &#34;Field_06cn7a8&#34;,       &#34;key&#34;: &#34;application.consentDocument2&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       },       &#34;properties&#34;: {         &#34;type&#34;: &#34;file&#34;       }     }   ],   &#34;schemaVersion&#34;: 10,   &#34;exporter&#34;: {     &#34;name&#34;: &#34;Camunda Modeler&#34;,     &#34;version&#34;: &#34;5.14.0&#34;   },   &#34;type&#34;: &#34;default&#34;,   &#34;id&#34;: &#34;Form_06wdn7g&#34; }" camunda:formRefBinding="latest">
+      <bpmn:incoming>Flow_00434jl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m52jqm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_1tkb7h5">
+      <bpmn:incoming>Flow_0dkm2ep</bpmn:incoming>
+      <bpmn:incoming>Flow_0m52jqm</bpmn:incoming>
+      <bpmn:outgoing>Flow_19bo5xz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_18wlxjy" name="Form Details Obtained">
+      <bpmn:incoming>Flow_07qv7os</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_138w3td" sourceRef="StartEvent_1" targetRef="submit-application" />
+    <bpmn:sequenceFlow id="Flow_11k9ory" sourceRef="submit-application" targetRef="review-application" />
+    <bpmn:sequenceFlow id="Flow_1uhex3m" sourceRef="set-consent-document-submission-choice" targetRef="Gateway_0q21nd5" />
+    <bpmn:sequenceFlow id="Flow_0i98c0d" sourceRef="Gateway_0q21nd5" targetRef="docusign-consent-document">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{submission_choice == 'signDocument'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_00434jl" sourceRef="Gateway_0q21nd5" targetRef="upload-consent-document">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{submission_choice == 'uploadDocument'}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0hlu5qp" sourceRef="review-application" targetRef="set-consent-document-submission-choice" />
+    <bpmn:sequenceFlow id="Flow_19bo5xz" sourceRef="Gateway_1tkb7h5" targetRef="approve-consent-document-submission" />
+    <bpmn:sequenceFlow id="Flow_07qv7os" sourceRef="approve-consent-document-submission" targetRef="Event_18wlxjy" />
+    <bpmn:userTask id="review-application" name="Review application" camunda:formRef="{   &#34;components&#34;: [     {       &#34;text&#34;: &#34; Review Application&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;id&#34;: &#34;Field_1mc9kqh&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1787heu&#34;       }     },     {       &#34;key&#34;: &#34;applicationReview.reviewerName&#34;,       &#34;label&#34;: &#34;Reviewer Name&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       },       &#34;id&#34;: &#34;Field_0v13w6h&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       }     },     {       &#34;values&#34;: [         {           &#34;label&#34;: &#34;Provided data is correct&#34;,           &#34;value&#34;: &#34;providedDataIsCorrect&#34;         },         {           &#34;label&#34;: &#34;Data Verified&#34;,           &#34;value&#34;: &#34;dataVerified&#34;         }       ],       &#34;label&#34;: &#34;Verify Data&#34;,       &#34;type&#34;: &#34;checklist&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1rmfa0u&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_1t2mou1&#34;,       &#34;key&#34;: &#34;applicationReview.verifyData&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;Comments&#34;,       &#34;type&#34;: &#34;textarea&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_0m8v245&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_1977ok2&#34;,       &#34;key&#34;: &#34;applicationReview.reviewerComments&#34;     }   ],   &#34;schemaVersion&#34;: 10,   &#34;exporter&#34;: {     &#34;name&#34;: &#34;Camunda Modeler&#34;,     &#34;version&#34;: &#34;5.14.0&#34;   },   &#34;type&#34;: &#34;default&#34;,   &#34;id&#34;: &#34;Form_06wdn7g&#34; }" camunda:formRefBinding="latest">
+      <bpmn:incoming>Flow_11k9ory</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hlu5qp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="approve-consent-document-submission" name="Approve Consent Document Submission" camunda:formRef="{   &#34;components&#34;: [     {       &#34;text&#34;: &#34;Review Consent Document&#34;,       &#34;type&#34;: &#34;text&#34;,       &#34;id&#34;: &#34;Field_1mc9kqh&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1787heu&#34;       }     },     {       &#34;key&#34;: &#34;applicationReview.reviewerName&#34;,       &#34;label&#34;: &#34;Reviewer Name&#34;,       &#34;type&#34;: &#34;textfield&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       },       &#34;id&#34;: &#34;Field_0v13w6h&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_178kayf&#34;,         &#34;columns&#34;: 3       }     },     {       &#34;values&#34;: [         {           &#34;label&#34;: &#34;Approved&#34;,           &#34;value&#34;: &#34;approved&#34;         },         {           &#34;label&#34;: &#34;Rejected&#34;,           &#34;value&#34;: &#34;rejected&#34;         }       ],       &#34;label&#34;: &#34;Approval Status&#34;,       &#34;type&#34;: &#34;radio&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_1w296mi&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_0qa3ei6&#34;,       &#34;key&#34;: &#34;applicationReview.approvalStatus&#34;,       &#34;validate&#34;: {         &#34;required&#34;: true       }     },     {       &#34;label&#34;: &#34;Comments&#34;,       &#34;type&#34;: &#34;textarea&#34;,       &#34;layout&#34;: {         &#34;row&#34;: &#34;Row_0m8v245&#34;,         &#34;columns&#34;: null       },       &#34;id&#34;: &#34;Field_1977ok2&#34;,       &#34;key&#34;: &#34;applicationReview.reviewerComments&#34;     }   ],   &#34;schemaVersion&#34;: 10,   &#34;exporter&#34;: {     &#34;name&#34;: &#34;Camunda Modeler&#34;,     &#34;version&#34;: &#34;5.14.0&#34;   },   &#34;type&#34;: &#34;default&#34;,   &#34;id&#34;: &#34;Form_06wdn7g&#34; }" camunda:formRefBinding="latest">
+      <bpmn:incoming>Flow_19bo5xz</bpmn:incoming>
+      <bpmn:outgoing>Flow_07qv7os</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="StartEvent_1" name="Form Submission Needed">
+      <bpmn:outgoing>Flow_138w3td</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0dkm2ep" sourceRef="docusign-consent-document" targetRef="Gateway_1tkb7h5" />
+    <bpmn:sequenceFlow id="Flow_0m52jqm" sourceRef="upload-consent-document" targetRef="Gateway_1tkb7h5" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0rgus6o">
+      <bpmndi:BPMNShape id="Participant_0zqhu9v_di" bpmnElement="Participant_0zqhu9v" isHorizontal="true">
+        <dc:Bounds x="129" y="80" width="1521" height="500" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1cmddr3_di" bpmnElement="Reviewer_Lane" isHorizontal="true">
+        <dc:Bounds x="159" y="350" width="1491" height="230" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1nej7m2_di" bpmnElement="Applicant_Lane" isHorizontal="true">
+        <dc:Bounds x="159" y="80" width="1491" height="270" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1puopn9_di" bpmnElement="submit-application">
+        <dc:Bounds x="360" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0q21nd5_di" bpmnElement="Gateway_0q21nd5" isMarkerVisible="true">
+        <dc:Bounds x="915" y="205" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wcuz24_di" bpmnElement="set-consent-document-submission-choice">
+        <dc:Bounds x="720" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0cdcxmr_di" bpmnElement="docusign-consent-document">
+        <dc:Bounds x="1000" y="100" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03ozskz_di" bpmnElement="upload-consent-document">
+        <dc:Bounds x="1010" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1tkb7h5_di" bpmnElement="Gateway_1tkb7h5" isMarkerVisible="true">
+        <dc:Bounds x="1145" y="185" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_18wlxjy_di" bpmnElement="Event_18wlxjy">
+        <dc:Bounds x="1562" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1549" y="245" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1aa2so2_di" bpmnElement="review-application">
+        <dc:Bounds x="520" y="460" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0x1vw89_di" bpmnElement="approve-consent-document-submission">
+        <dc:Bounds x="1280" y="460" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="232" y="202" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="207" y="245" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_138w3td_di" bpmnElement="Flow_138w3td">
+        <di:waypoint x="268" y="220" />
+        <di:waypoint x="360" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11k9ory_di" bpmnElement="Flow_11k9ory">
+        <di:waypoint x="460" y="220" />
+        <di:waypoint x="480" y="220" />
+        <di:waypoint x="480" y="500" />
+        <di:waypoint x="520" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uhex3m_di" bpmnElement="Flow_1uhex3m">
+        <di:waypoint x="820" y="220" />
+        <di:waypoint x="868" y="220" />
+        <di:waypoint x="868" y="230" />
+        <di:waypoint x="915" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i98c0d_di" bpmnElement="Flow_0i98c0d">
+        <di:waypoint x="940" y="205" />
+        <di:waypoint x="940" y="140" />
+        <di:waypoint x="1000" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00434jl_di" bpmnElement="Flow_00434jl">
+        <di:waypoint x="940" y="255" />
+        <di:waypoint x="940" y="290" />
+        <di:waypoint x="1010" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hlu5qp_di" bpmnElement="Flow_0hlu5qp">
+        <di:waypoint x="620" y="500" />
+        <di:waypoint x="680" y="500" />
+        <di:waypoint x="680" y="220" />
+        <di:waypoint x="720" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19bo5xz_di" bpmnElement="Flow_19bo5xz">
+        <di:waypoint x="1195" y="210" />
+        <di:waypoint x="1230" y="210" />
+        <di:waypoint x="1230" y="370" />
+        <di:waypoint x="1330" y="370" />
+        <di:waypoint x="1330" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07qv7os_di" bpmnElement="Flow_07qv7os">
+        <di:waypoint x="1380" y="500" />
+        <di:waypoint x="1470" y="500" />
+        <di:waypoint x="1470" y="220" />
+        <di:waypoint x="1562" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dkm2ep_di" bpmnElement="Flow_0dkm2ep">
+        <di:waypoint x="1100" y="140" />
+        <di:waypoint x="1170" y="140" />
+        <di:waypoint x="1170" y="185" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m52jqm_di" bpmnElement="Flow_0m52jqm">
+        <di:waypoint x="1110" y="290" />
+        <di:waypoint x="1170" y="290" />
+        <di:waypoint x="1170" y="235" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
