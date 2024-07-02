@@ -81,6 +81,11 @@ Run the command below to install dependencies:
 npm install -f
 ```
 
+Run this command to run the web application
+```bash
+npm start
+```
+
 Build the app using the command below:
 ```bash
 npm run build
