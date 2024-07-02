@@ -1,0 +1,51 @@
+services:
+  dynamo-backend:
+    image: devbrz/dynamo-backend:latest
+    container_name: dynamo-backend
+    ports:
+      - "8080:8443"
+    depends_on:
+      dynamo-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8443/actuator/health"]
+      interval: 30s
+      timeout: 7s
+      start_period: 60s
+      retries: 5
+    env_file: ../quick-start/.env
+    restart: "no"
+    networks:
+      - dynamo-network
+
+  dynamo-db:
+    image: public.ecr.aws/e8z7j4t6/db:latest
+    container_name: dynamo-db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 7s
+      start_period: 2s
+      retries: 3
+    restart: "no"
+    volumes:
+      - dynamo-data:/app/data
+    networks:
+      - dynamo-network
+
+  dynamo-web-ui:
+    image: devbrz/dynamo-web-ui:latest
+    container_name: dynamo-web-ui
+    ports:
+      - "3000:80"
+    restart: "no"
+    networks:
+      - dynamo-network
+
+volumes:
+  dynamo-data:
+
+networks:
+  dynamo-network:
