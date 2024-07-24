@@ -1,4 +1,4 @@
-# Dynamo Showcase Application on Docker
+# Dynamo Sample Application on Docker
 
 ### Prerequisites
 
